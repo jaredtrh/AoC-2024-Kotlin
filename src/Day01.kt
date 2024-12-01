@@ -18,7 +18,7 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         val (a, b) = getLists(input)
-        val freq = b.fold(mutableMapOf<Int, Int>()) { freq, x ->
+        val freq: MutableMap<Int, Int> = b.fold(mutableMapOf()) { freq, x ->
             freq.merge(x, 1, Int::plus)
             freq
         }
