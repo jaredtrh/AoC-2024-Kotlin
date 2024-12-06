@@ -7,13 +7,10 @@ fun main() {
         }.toSet()
         return updated.sumOf {
             val ls = it.split(',').map(String::toInt)
-            if (
-                (0 ..< ls.lastIndex).all { i ->
-                    (i + 1 ..< ls.size).all { j ->
-                        set.contains(Pair(ls[i], ls[j]))
-                    }
-                }
-            ) right(ls) else wrong(ls.toMutableList(), set)
+            if (ls.zipWithNext().all { (lhs, rhs) -> set.contains(Pair(lhs, rhs)) })
+                right(ls)
+            else
+                wrong(ls.toMutableList(), set)
         }
     }
 
