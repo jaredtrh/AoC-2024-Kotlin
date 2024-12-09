@@ -33,7 +33,7 @@ fun main() {
             free[disk[i]].add(i)
         }
         if (disk.size % 2 == 0)
-            sum -= disk[disk.size - 3] + disk[disk.size - 2]
+            sum -= disk[disk.size - 2] + disk[disk.size - 1]
         val used = IntArray(before.size)
         var ans = 0L
         for (i in (2 ..< disk.size).step(2).reversed()) {
