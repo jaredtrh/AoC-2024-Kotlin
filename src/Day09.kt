@@ -22,7 +22,9 @@ fun main() {
     }
 
     fun part2(input: List<String>): Long {
-        val disk = input[0].map(Char::digitToInt)
+        val disk = input[0].map(Char::digitToInt).let {
+            if (it.size % 2 == 0) it.dropLast(1) else it
+        }
         val before = IntArray(input[0].length / 2)
         var sum = 0
         val free: Array<SortedSet<Int>> = Array(10) { sortedSetOf() }
@@ -32,8 +34,6 @@ fun main() {
             sum += disk[i]
             free[disk[i]].add(i)
         }
-        if (disk.size % 2 == 0)
-            sum -= disk[disk.size - 2] + disk[disk.size - 1]
         val used = IntArray(before.size)
         var ans = 0L
         for (i in (2 ..< disk.size).step(2).reversed()) {
