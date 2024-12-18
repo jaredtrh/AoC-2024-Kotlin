@@ -1,5 +1,3 @@
-import kotlin.math.min
-
 fun main() {
     fun getProgram(input: List<String>): Pair<Int, List<Int>> =
         Pair(
@@ -19,7 +17,6 @@ fun main() {
                 6 -> c
                 else -> 0 // unreachable
             }
-
         val output: MutableList<Int> = mutableListOf()
         var ip = 0
         while (ip < program.size) {
@@ -68,20 +65,14 @@ fun main() {
         } else {
             val x = program[3]
             val y = program[program.drop(6).indexOf(1) + 1]
-            var ans = Long.MAX_VALUE
-            fun dfs(i: Int, a: Long): Boolean {
-                if (i == -1) {
-                    ans = min(ans, a)
-                    return true
-                }
+            fun dfs(i: Int, a: Long): Long? {
+                if (i == -1) return a
                 for (b in (a shl 3) .. (a shl 3) + 7)
-                    if (calc(b, x, y) == program[i] && dfs(i - 1, b))
-                        return true
-                return false
+                    if (calc(b, x, y) == program[i])
+                        dfs(i - 1, b)?.let { return it }
+                return null
             }
-            for (a in 0 .. 127L)
-                dfs(program.lastIndex, a)
-            ans
+            dfs(program.lastIndex, 0)!!
         }
     }
 
