@@ -18,7 +18,7 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        val map = input.map(String::toInt).fold(mutableMapOf<Int, Int>()) { map, x ->
+        return input.map(String::toInt).fold(mutableMapOf<Int, Int>()) { map, x ->
             var price = x
             var prv = price % 10
             var key = 0
@@ -31,8 +31,7 @@ fun main() {
                     map[key] = map.getOrDefault(key, 0) + prv
             }
             map
-        }
-        return map.values.max()
+        }.values.max()
     }
 
     val testInput1 = readInput("Day22_test1")
