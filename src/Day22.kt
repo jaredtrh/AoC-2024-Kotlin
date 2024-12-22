@@ -18,22 +18,21 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        val consec = input.map(String::toInt).map { x ->
-            val map: MutableMap<Int, Int> = mutableMapOf()
+        val map = input.map(String::toInt).fold(mutableMapOf<Int, Int>()) { map, x ->
             var price = x
             var prv = price % 10
             var key = 0
+            val vis: MutableSet<Int> = mutableSetOf()
             repeat(2000) {
                 price = next(price)
                 key = (key * 19 + price % 10 - prv + 9) % 130321
                 prv = price % 10
-                if (it >= 3) map.putIfAbsent(key, prv)
+                if (it >= 3 && vis.add(key))
+                    map[key] = map.getOrDefault(key, 0) + prv
             }
             map
         }
-        return consec.map(Map<Int, Int>::keys).flatten().distinct().maxOf {
-            consec.sumOf { map -> map.getOrDefault(it, 0) }
-        }
+        return map.values.max()
     }
 
     val testInput1 = readInput("Day22_test1")
