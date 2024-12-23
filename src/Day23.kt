@@ -17,12 +17,7 @@ fun main() {
         for ((com, nbs) in adj) {
             for (i in nbs.indices) {
                 for (j in i + 1..< nbs.size) {
-                    if (
-                        edge.contains(Pair(com, nbs[i])) &&
-                        edge.contains(Pair(com, nbs[j])) &&
-                        edge.contains(Pair(nbs[i], nbs[j])) &&
-                        (com[0] == 't' || nbs[i][0] == 't' || nbs[j][0] == 't')
-                    ) {
+                    if (edge.contains(Pair(nbs[i], nbs[j])) && (com[0] == 't' || nbs[i][0] == 't' || nbs[j][0] == 't')) {
                         val (a, b, c) = arrayOf(com, nbs[i], nbs[j]).sorted()
                         ans.add(Triple(a, b, c))
                     }
